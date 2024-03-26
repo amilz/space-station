@@ -4,11 +4,13 @@ description: "Run the swap API with your own infra"
 title: "Self-hosted V6 Swap API"
 ---
 
-Advanced users can run a self-hosted Jupiter Swap API, you can download the jupiter-swap-api [here](https://github.com/jup-ag/jupiter-swap-api/releases).
-
-Mission-critical use cases, like liquidations and oracles, can deploy their own API servers relying on their own RPC nodes to entirely decouple their systems from Jupiter infrastructure.
+Advanced users with mission-critical use cases, like liquidations and oracles, can deploy their own API servers relying on their own RPC nodes to entirely decouple their systems from Jupiter infrastructure.
 
 Integrators load is no longer restricted by the public API rate limits.
+
+Self-hosted Jupiter Swap API can be downloaded [here](https://github.com/jup-ag/jupiter-swap-api/releases).
+
+For high-performance applications that do not wish to self-host, consider using a [hosted API](/docs/apis/hosted-apis).
 
 ## Prerequisites
 

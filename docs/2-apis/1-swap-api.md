@@ -91,17 +91,33 @@ const wallet = new Wallet(Keypair.fromSecretKey(bs58.decode(process.env.PRIVATE_
   }
 `}</style>
 
-#### 4. Get the route for a swap
+#### 4. Set your Jupiter Endpoint
+
+You will need an endpoint to get the quote and swap transactions. Jupiter provides a free public endpoint for developers to use, however, we implement rate limit from time to time depending on the load of our servers. You can set the endpoint to the public Jupiter API endpoint as shown below:
+
+```js
+const jupiterEndpoint = 'https://quote-api.jup.ag/v6';
+```
+
+For production applications, we recommend using a hosted version of the API or running your own instance:
+
+| Option | Type | Detail |
+|--------|-------------|-----------|
+| [QuickNode Metis](https://marketplace.quicknode.com/add-on/metis-jupiter-v6-swap-api?utm_source=docs.jup.ag) | Hosted | Private, low-latency, scalable, paid rate tiers |
+| [JupiterAPI.com](https://www.jupiterapi.com/) | Hosted | Public, low-latency, rate-limited, free with fees |
+| [Run Your Own Instance](https://station.jup.ag/docs/apis/self-hosted) | Self-hosted | For advanced users - custom configuration required |
+
+#### 5. Get the route for a swap
 
 Here, we are getting a quote to swap from SOL to USDC.
 
 ```js
 // Swapping SOL to USDC with input 0.1 SOL and 0.5% slippage
 const quoteResponse = await (
-  await fetch('https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112\
+  await fetch(`${jupiterEndpoint}/quote?inputMint=So11111111111111111111111111111111111111112\
 &outputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\
 &amount=100000000\
-&slippageBps=50'
+&slippageBps=50`
   )
 ).json();
 // console.log({ quoteResponse })
@@ -141,14 +157,14 @@ If you'd like to charge a fee, pass in `platformFeeBps` as a parameter in the qu
 The API takes in amount in integer and you have to factor in the decimals for each token by looking up the decimals for that token. For example, USDC has 6 decimals and 1 USDC is 1000000 in integer when passing it in into the API.
 :::
 
-#### 5. Get the serialized transactions to perform the swap
+#### 6. Get the serialized transactions to perform the swap
 
 Once we have the quote, we need to serialize the quote into a swap transaction that can be submitted on chain.
 
 ```js
 // get serialized transactions for the swap
 const { swapTransaction } = await (
-  await fetch('https://quote-api.jup.ag/v6/swap', {
+  await fetch(`${jupiterEndpoint}/swap`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -190,7 +206,7 @@ const { swapTransaction } = await (
 | `destinationTokenAccount` | String | No | Public key of the token account that will be used to receive the token out of the swap. If not provided, the user's ATA will be used. If provided, we assume that the token account is already initialized. |
 </details>
 
-#### 6. Deserialize and sign the transaction
+#### 7. Deserialize and sign the transaction
 
 ```js
 // deserialize the transaction
@@ -202,7 +218,7 @@ console.log(transaction);
 transaction.sign([wallet.payer]);
 ```
 
-#### 7. Execute the transaction
+#### 8. Execute the transaction
 
 ```js
 // Execute the transaction
@@ -230,7 +246,7 @@ const transaction = connection.getTransaction(txid, {
 });
 
 const programIdToLabelHash = await (
-  await fetch('https://quote-api.jup.ag/v6/program-id-to-label')
+  await fetch(`${jupiterEndpoint}/program-id-to-label`)
 ).json();
 const { programIds } = parseErrorForTransaction(transaction);
 
@@ -246,7 +262,7 @@ if (programIds) {
 
 // Request another quote with `excludeDexes`.
 const { data } = await (
-  await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112
+  await fetch(`${jupiterEndpoint}/quote?inputMint=So11111111111111111111111111111111111111112
 &outputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
 &amount=100000000&excludeDexes=${Array.from(excludeDexes).join(',')}
 &slippageBps=50`
@@ -260,7 +276,7 @@ Sometimes you prefer to compose using instructions instead of one transaction th
 
 ```ts
 const instructions = await (
-  await fetch('https://quote-api.jup.ag/v6/swap-instructions', {
+  await fetch(`${jupiterEndpoint}/swap-instructions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -348,11 +364,11 @@ for your own program instruction, you can use `maxAccounts`.
 // If you know that your instruction will take up 10 accounts, you
 // can pass in 54 as `maxAccounts` when quoting.
 const { data } = await (
-  await fetch('https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112\
+  await fetch(`${jupiterEndpoint}/quote?inputMint=So11111111111111111111111111111111111111112\
 &outputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\
 &amount=100000000\
 &slippageBps=50\
-&maxAccounts=54'
+&maxAccounts=54`
   )
 ).json();
 const quoteResponse = data;
@@ -370,7 +386,7 @@ For example:
 
 ```ts
 const instructions = await (
-  await fetch('https://quote-api.jup.ag/v6/swap-instructions', {
+  await fetch(`${jupiterEndpoint}/swap-instructions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -456,7 +472,7 @@ If transactions are expiring without confirmation on-chain, this might mean that
 
 ```js
 const transaction = await (
-  await fetch('https://quote-api.jup.ag/v6/swap', {
+  await fetch(`${jupiterEndpoint}/swap`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
