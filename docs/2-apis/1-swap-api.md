@@ -99,13 +99,13 @@ You will need an endpoint to get the quote and swap transactions. Jupiter provid
 const jupiterEndpoint = 'https://quote-api.jup.ag/v6';
 ```
 
-For production applications, we recommend using a hosted version of the API or running your own instance:
+For production applications, we recommend using a [hosted version](/docs/apis/hosted-apis) of the API or running your own instance:
 
 | Option | Type | Detail |
 |--------|-------------|-----------|
 | [QuickNode Metis](https://marketplace.quicknode.com/add-on/metis-jupiter-v6-swap-api?utm_source=docs.jup.ag) | Hosted | Private, low-latency, scalable, paid rate tiers |
 | [JupiterAPI.com](https://www.jupiterapi.com/) | Hosted | Public, low-latency, rate-limited, free with fees |
-| [Run Your Own Instance](https://station.jup.ag/docs/apis/self-hosted) | Self-hosted | For advanced users - custom configuration required |
+| [Run Your Own Instance](/docs/apis/self-hosted) | Self-hosted | For advanced users - custom configuration required |
 
 #### 5. Get the route for a swap
 

@@ -85,5 +85,5 @@ const txid = await connection.sendRawTransaction(rawTransaction, {
 
 If you are running a high frequency or mission-critical application, you are likely to hit rate limits or latency issues with Jupiter's Public API endpoint. In this case, we recommend using using a hosted version of Jupiter Swap API: 
 
-- [Hosted Jupiter Swap API](/docs/2-apis/8-hosted-apis.md) for easy integration and scalable solutions.
-- [Self-hosted Jupiter Swap API](/docs/2-apis/9-self-hosted.md) for advanced users wishing to run their own API servers.
+- [Hosted Jupiter Swap API](/docs/apis/hosted-apis) for easy integration and scalable solutions.
+- [Self-hosted Jupiter Swap API](/docs/apis/self-hosted) for advanced users wishing to run their own API servers.
