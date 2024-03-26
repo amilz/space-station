@@ -12,6 +12,8 @@ const nft = '/img/nft.png';
 const game = '/img/game.png';
 const infra = '/img/infra.png';
 
+const bitget = 'img/wallet/bitget.png'
+const crypto = 'img/wallet/crypto.png'
 const gemwallet = '/img/wallet/gemwallet.svg';
 const phantom = '/img/wallet/phantom.svg';
 const solflare = '/img/wallet/solflare.svg';
@@ -26,6 +28,7 @@ const ottr = '/img/wallet/ottr.png';
 const nightly = '/img/wallet/nightly.svg';
 const keyapp = '/img/wallet/key.svg';
 const tiplink = '/img/wallet/tiplink.svg';
+const okx = '/img/wallet/okx.png';
 
 const birdeye = '/img/defi/birdeye.png';
 const bonfida = '/img/defi/bonfida.png';
@@ -111,9 +114,24 @@ const sections = [
     description: `DeFi wallets are a crucial tool for interacting with DeFi protocols in the Web3 ecosystem. They store and manage cryptocurrency assets and allow access to decentralized exchanges, lending platforms, and liquidity pools. Wallet partners have an in-wallet swap feature, like Jupiter, available on iOS, Android, and Web Widget platforms. This allow users to easily exchange cryptocurrencies within their wallet for the optimum price with seamless experience.`,
     cards: [
       {
+        title: 'Bitget Wallet',
+        logo: bitget,
+        link: 'https://web3.bitget.com/en',
+      },
+      {
+        title: 'OKX Wallet',
+        logo: okx,
+        link: 'https://www.okx.com/web3',
+      },
+      {
         title: 'Gem Wallet',
         logo: gemwallet,
         link: 'https://gemwallet.com',
+      },
+      {
+        title: 'Crypto.com',
+        logo: crypto,
+        link: 'https://crypto.com/defi-wallet',
       },
       {
         title: 'Phantom',
